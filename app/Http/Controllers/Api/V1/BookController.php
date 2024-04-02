@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Resources\BookCollection;
-use App\Http\Resources\BookResource;
+use App\Http\Resources\V1\BookCollection;
+use App\Http\Resources\V1\BookResource;
 use App\Models\Book;
-use App\Http\Requests\StoreBookRequest;
-use App\Http\Requests\UpdateBookRequest;
+use App\Http\Requests\V1\StoreBookRequest;
+use App\Http\Requests\V1\UpdateBookRequest;
 use App\Http\Controllers\Controller;
 
 class BookController extends Controller

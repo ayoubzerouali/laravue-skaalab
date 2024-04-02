@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\BookController;
+use App\Http\Controllers\Api\V1\BookController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -10,6 +10,6 @@ Route::get('/user', function (Request $request) {
 
 
 Route::
-    prefix('/')->group(function () {
+    prefix('/v1')->group(function () {
         Route::apiResource('books', BookController::class);
     });
