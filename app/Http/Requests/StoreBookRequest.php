@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreBookRequest extends FormRequest
@@ -11,7 +12,7 @@ class StoreBookRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,19 @@ class StoreBookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required',
+            'author' => 'required|string',
+            'publishedAt' => 'required|date_format:d/m/Y',
+            'isbn' => 'required|string|digits: 13',
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        if ($this->has('publishedAt') && !is_null($this->publishedAt)) {
+            $this->merge([
+                'published_at' => Carbon::createFromFormat('d/m/Y', $this->publishedAt),
+            ]);
+        }
     }
 }
