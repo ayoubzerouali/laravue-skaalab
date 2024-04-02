@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateBookRequest extends FormRequest
 {
@@ -25,16 +26,16 @@ class UpdateBookRequest extends FormRequest
         if ($this->method() === 'PUT') {
             return [
                 'title' => ['required'],
-                'author' => ['required|string'],
-                'publishedAt' => ['required|date_format:d/m/Y'],
-                'isbn' => ['required|string|digits: 13'],
+                'author' => ['required'],
+                'publishedAt' => ['required', 'date_format:d/m/Y'],
+                'isbn' => ['required', 'digits: 13'],
             ];
         } else {
             return [
-                'title' => ['sometimes|required|string|max:255'],
-                'author' => ['sometimes|required|string'],
-                'publishedAt' => ['sometimes|required|date_format:d/m/Y'],
-                'isbn' => ['sometimes|required|digits: 13'],
+                'title' => ['sometimes', 'required', 'string', 'max:255'],
+                'author' => ['sometimes', 'required', 'string'],
+                'publishedAt' => ['sometimes', 'required', 'date_format:d/m/Y',],
+                'isbn' => ['sometimes', 'required', 'digits:13'],
             ];
         }
     }
