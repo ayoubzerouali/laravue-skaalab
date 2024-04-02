@@ -3,8 +3,15 @@
     <nav>
         <ul>
             <li>HOME</li>
-        </ul>
-    </nav>
-</header>
-
+                <Button label="Submit" />
+            </ul>
+        </nav>
+    </header>
+    
+    <Button label="Submit" />
 </template>
+
+<script setup>
+import Button from "primevue/button";
+
+</script>

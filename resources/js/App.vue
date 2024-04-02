@@ -1,5 +1,5 @@
 <template>
-    <Navbar draggable  />    
+    <Navbar   />    
     <h2 v-if="books.length > 0" v-for="book in books">
         <h3>{{ book.title }}</h3>
     </h2>
@@ -10,6 +10,7 @@
 import Navbar from '@/components/Navbar.vue';
 import axios from 'axios'
 import { ref,onMounted, onBeforeMount } from 'vue';
+import Sidebar from './components/Sidebar.vue';
 
 const books = ref([])
 
