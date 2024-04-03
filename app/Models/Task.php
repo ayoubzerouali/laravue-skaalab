@@ -17,7 +17,11 @@ class Task extends Model
     ];
     public function user()
     {
-        $this->belongsTo(User::class);
+        $this->belongsToMany(User::class);
     }
 
+    public function workspace()
+    {
+        return $this->belongsTo(Workspace::class);
+    }
 }

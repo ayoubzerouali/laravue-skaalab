@@ -19,3 +19,7 @@ window.Echo = new Echo({
     cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
     forceTLS: true,
 });
+
+window.Echo.channel("realtime_").listen("TaskUpdated", (event) => {
+    console.log("Task updated:", event.task);
+});
