@@ -12,7 +12,13 @@ import { defineEmits } from 'vue';
 const items = [
     {
         label: 'Dashboard',
-        icon: 'pi pi-home'
+        icon: 'pi pi-home',
+        // to:'/Dashboard'
+    },
+    {
+        label: 'Login',
+        icon: 'pi pi-user',
+        to:'login'
     },
 ]
 
@@ -27,4 +33,5 @@ const emits = defineEmits(["toggleModal"]);
     align-items: center;
     margin-bottom: 1rem;
 }
+
 </style>

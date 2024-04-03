@@ -11,7 +11,7 @@ Route::get('/user', function (Request $request) {
 
 
 Route::
-    prefix('/v1')->group(function () {
+    prefix('/v1')->middleware('auth:sanctum')->group(function () {
         Route::apiResource('books', BookController::class);
         Route::apiResource('tasks', TaskController::class);
     });
