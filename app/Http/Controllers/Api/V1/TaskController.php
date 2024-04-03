@@ -17,7 +17,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return new TaskCollection(Task::all());
+        $user = auth()->user();
+        return new TaskCollection(Task::where('user_id', $user->id)->get());
     }
 
     /**

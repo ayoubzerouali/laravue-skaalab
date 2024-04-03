@@ -1,35 +1,21 @@
 import { defineStore } from "pinia";
 import { computed, ref } from "vue";
-
+import { useAuthStore } from "./AuthStore";
 export const useTaskStore = defineStore("taskStore", () => {
     const tasks = ref([]);
-    // const loading = ref(false);
-    // state: () => ({
-    //     tasks: [],
-    // loading: false,
-    // }),
+    const token = localStorage.getItem("token");
+
+    const auth = useAuthStore();
 
     // getters
-    const favs = computed(() => {
-        return tasks.filter((t) => t.isFav);
-    });
-
-    const favCount = computed(() => {
-        return tasks.reduce((p, c) => {
-            return c.isFav ? p + 1 : p;
-        }, 0);
-    });
-
-    const totalCount = computed((state) => {
-        return state.tasks.length;
-    });
 
     //actions
     async function getTasks() {
         // loading = true;
+        if (!auth.token) {
+            return 0;
+        }
         try {
-            // get data from json file using json server
-            const token = "1|9bMry6ff3oi6iyi64kvTUcJjo8RvwJPOsdSiK4w19f72ef9c";
             const res = await axios.get("api/v1/tasks", {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -46,24 +32,9 @@ export const useTaskStore = defineStore("taskStore", () => {
         // loading = false;
     }
     async function addTask(task) {
-        tasks.value.push(task);
-
-        // const res = await fetch("api/v1/tasks", {
-        //     method: "POST",
-        //     body: JSON.stringify(task),
-        //     headers: {},
-        // });
-
         try {
-            // const data = {
-            //     name: taskName.value,
-            //     text: taskText.value,
-            //     stat: "todo",
-            //     user_id: 1,
-            // };
             const headers = {
-                Authorization:
-                    "Bearer 1|9bMry6ff3oi6iyi64kvTUcJjo8RvwJPOsdSiK4w19f72ef9c",
+                Authorization: `Bearer ${token}`,
                 Accept: "application/json",
                 "Content-Type": "application/json",
             };
@@ -71,27 +42,41 @@ export const useTaskStore = defineStore("taskStore", () => {
             const response = await axios.post("/api/v1/tasks", task, {
                 headers,
             });
+            tasks.value.push(task);
         } catch (error) {
             console.error("Error:", error);
         }
     }
 
-    async function deleteTask(id) {
-        console.log(id);
-        tasks.value = tasks.value.filter((t) => {
-            return t.id !== id;
-        });
-
-        const res = await axios.delete("api/v1/tasks/" + id, {
+    async function updateTask(id, value, key) {
+        const data = { [key]: value };
+        const res = await axios.patch("api/v1/tasks/" + id, data, {
             headers: {
-                Authorization:
-                    "Bearer 1|9bMry6ff3oi6iyi64kvTUcJjo8RvwJPOsdSiK4w19f72ef9c",
+                Authorization: `Bearer ${token}`,
                 Accept: "application/json",
                 "Content-Type": "application/json",
             },
         });
 
         if (res.error) {
+            console.log(res.error);
+        }
+    }
+
+    async function deleteTask(id) {
+        console.log(id);
+        try {
+            const res = await axios.delete("api/v1/tasks/" + id, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+            });
+            tasks.value = tasks.value.filter((t) => {
+                return t.id !== id;
+            });
+        } catch (error) {
             console.log(res.error);
         }
     }
@@ -109,5 +94,5 @@ export const useTaskStore = defineStore("taskStore", () => {
             console.log(res.error);
         }
     }
-    return { deleteTask, toggleFav, addTask, getTasks, tasks };
+    return { deleteTask, toggleFav, addTask, getTasks, tasks, updateTask };
 });

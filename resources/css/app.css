@@ -4,24 +4,20 @@ body {
   background: #f2f2f2;
   color: #444;
   margin: 0;
+  overflow-y: auto; 
+  min-height: 100vh;
 }
 body * {
   font-family: "Poppins";
 }
 
-/* header */
 header {
   text-align: center;
   background: transparent;
-  padding-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-  /* header img {
-    max-width: 60px;
-    transform: rotate(-10deg);
-  } */
 header h1 {
   margin: 0;
   font-size: 2em;
@@ -30,10 +26,9 @@ header h1 {
   color: #777;
 }
 
-/* task list */
 .task-list {
-  max-width: 640px;
-  margin: 20px auto;
+  position: relative;
+  /* bottom: 10em; */
 }
 .task {
   padding: 6px 20px;
@@ -91,15 +86,7 @@ form {
   /* grid-template-columns: 3fr 1fr; */
   gap: 3px;
 }
-form button {
-  background: #ffd859;
-  border: 0;
-  padding: 10px;
-  font-family: "Poppins";
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1em;
-}
+
 form input {
   border: 0;
   padding: 10px;
@@ -114,14 +101,44 @@ form textarea {
   color: #555;
   font-size: 1em;
 }
+.btn {
+  background: #ffd859;
+  border: 0;
+  padding: 10px;
+  font-family: "Poppins";
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1em;
+}
+.router-link {
+  color: #333;
+  text-decoration: none;
+  padding: 8px 12px;
+  border: 1px solid #333;
+  border-radius: 4px;
+  background-color: #fff;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+.router-link:hover {
+  background-color: #eee;
+}
 
-/* loading state */
-.loading {
-  max-width: 640px;
-  border: 1px solid #ffd859;
-  background: #ffe9a0;
-  color: #3a3a3a;
-  padding: 5px 0;
-  text-align: center;
-  margin: 30px auto;
+.lists {
+  min-height: 50vh;
+  display: grid;
+  grid-gap: 1em;
+  overflow-y: auto;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Automatically fit columns with minimum width of 250px */
+}
+.task-list{
+    background: #e7e7e7 ;
+}
+
+
+select{
+  text-decoration: none;
+  border:solid 2px #9d8282;
+  border-radius: 4px;
+  cursor: pointer;
 }
