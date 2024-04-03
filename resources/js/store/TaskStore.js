@@ -1,11 +1,11 @@
 import { defineStore } from "pinia";
-import { computed, ref } from "vue";
+import { computed, ref, resolveDirective } from "vue";
 import { useAuthStore } from "./AuthStore";
 import { storeToRefs } from "pinia";
 
 export const useTaskStore = defineStore("taskStore", () => {
     const tasks = ref([]);
-
+    const userName = ref("");
     const auth = useAuthStore();
     const { isAuthenticated, token, authUser } = storeToRefs(auth);
     const headers = {
@@ -62,5 +62,20 @@ export const useTaskStore = defineStore("taskStore", () => {
             console.log(res.error);
         }
     }
-    return { deleteTask, addTask, getTasks, tasks, updateTask };
+
+    async function getUserName(id) {
+        const res = await axios.get(`/api/v1/users/${id}`, { headers });
+        const data = await res.data;
+        userName.value = data.name;
+        return data.name;
+    }
+    return {
+        deleteTask,
+        addTask,
+        getTasks,
+        tasks,
+        updateTask,
+        getUserName,
+        userName,
+    };
 });

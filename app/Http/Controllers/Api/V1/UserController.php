@@ -13,4 +13,10 @@ class UserController extends Controller
         return User::all();
     }
 
+
+    public function getUser($id)
+    {
+        $user = User::findOrFail($id);
+        return $user;
+    }
 }
