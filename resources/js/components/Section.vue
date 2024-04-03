@@ -1,5 +1,5 @@
 <template>
-    <Splitter style="height: 300px">
+    <!-- <Splitter style="height: 300px">
       <SplitterPanel :size="25" :minSize="10">
         <h1>En Attente</h1>
         <div
@@ -57,13 +57,13 @@
           </div>
         </div>
       </SplitterPanel>
-    </Splitter>
+    </Splitter> -->
   </template>
   
   <script setup>
     import axios from "axios";
-    import Splitter from "primevue/splitter";
-    import SplitterPanel from "primevue/splitterpanel";
+    // import Splitter from "primevue/splitter";
+    // import SplitterPanel from "primevue/splitterpanel";
     import { onMounted, ref } from "vue";
   
     const items = ref([]);

@@ -29,7 +29,7 @@ export const useTaskStore = defineStore("taskStore", () => {
         // loading = true;
         try {
             // get data from json file using json server
-            const token = "7|bwYZETbSadqFlJvmwYS8BAQpEYgvGZWLpjdzP3xmd76d9ae8";
+            const token = "1|9bMry6ff3oi6iyi64kvTUcJjo8RvwJPOsdSiK4w19f72ef9c";
             const res = await axios.get("api/v1/tasks", {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -63,7 +63,7 @@ export const useTaskStore = defineStore("taskStore", () => {
             // };
             const headers = {
                 Authorization:
-                    "Bearer 7|bwYZETbSadqFlJvmwYS8BAQpEYgvGZWLpjdzP3xmd76d9ae8",
+                    "Bearer 1|9bMry6ff3oi6iyi64kvTUcJjo8RvwJPOsdSiK4w19f72ef9c",
                 Accept: "application/json",
                 "Content-Type": "application/json",
             };
@@ -78,20 +78,22 @@ export const useTaskStore = defineStore("taskStore", () => {
 
     async function deleteTask(id) {
         console.log(id);
-        // tasks.value = tasks.value.filter((t) => {
-        //     return t.id !== id;
-        // });
+        tasks.value = tasks.value.filter((t) => {
+            return t.id !== id;
+        });
 
-        // const res = await axios.delete("api/v1/tasks/" + id, {
-        //     Authorization:
-        //         "Bearer 7|bwYZETbSadqFlJvmwYS8BAQpEYgvGZWLpjdzP3xmd76d9ae8",
-        //     Accept: "application/json",
-        //     "Content-Type": "application/json",
-        // });
+        const res = await axios.delete("api/v1/tasks/" + id, {
+            headers: {
+                Authorization:
+                    "Bearer 1|9bMry6ff3oi6iyi64kvTUcJjo8RvwJPOsdSiK4w19f72ef9c",
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+        });
 
-        // if (res.error) {
-        //     console.log(res.error);
-        // }
+        if (res.error) {
+            console.log(res.error);
+        }
     }
     async function toggleFav(id) {
         const task = tasks.find((t) => t.id === id);

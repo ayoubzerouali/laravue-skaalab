@@ -1,6 +1,6 @@
 <template>
 
-    <Dialog :visible="visible" modal   header="Ajouter une tache" :style="{ width: '25rem' }">
+    <!-- <Dialog :visible="visible" modal   header="Ajouter une tache" :style="{ width: '25rem' }">
         <div class="flex align-items-center gap-3 mb-3">
             <label for="name" class="font-semibold w-6rem">Nom </label>
             <InputText v-model="taskName" id="name" class="flex-auto" autocomplete="off" />
@@ -13,14 +13,14 @@
             <Button type="button" label="Cancel" severity="secondary" @click="closeModal()"></Button>
             <Button type="button" label="Save" @click="addTask()"></Button>
         </div>
-    </Dialog>
+    </Dialog> -->
 </template>
 
 <script setup>
 
-import Dialog from 'primevue/dialog';
-import Button from 'primevue/button';
-import InputText from 'primevue/inputtext';
+// import Dialog from 'primevue/dialog';
+// import Button from 'primevue/button';
+// import InputText from 'primevue/inputtext';
 import { ref,computed,defineEmits  } from 'vue';
 import axios from 'axios';
 

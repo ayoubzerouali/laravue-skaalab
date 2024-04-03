@@ -19,7 +19,7 @@
   const taskText = ref('')
 
   const handleSubmit = () => {
-    if (newTask.value.length > 0) {
+    if (taskName.value.length > 0 && taskText.value.length > 0) {
       taskStore.addTask({
         name: taskName.value,
         stat: "todo",

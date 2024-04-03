@@ -46,7 +46,7 @@
   
     const taskStore = useTaskStore()
   
-      const { tasks, loading, favs, totalCount, favCount } = storeToRefs(taskStore)
+    const { tasks, loading, favs, totalCount, favCount } = storeToRefs(taskStore)
 
       // fetch tasks
       taskStore.getTasks()
