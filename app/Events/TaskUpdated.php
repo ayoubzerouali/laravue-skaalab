@@ -33,7 +33,7 @@ class TaskUpdated implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new Channel('realtime_' . $this->user),
+            new Channel('realtime_'),
         ];
     }
 }

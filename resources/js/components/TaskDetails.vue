@@ -36,6 +36,7 @@ onMounted( async ()=>{
     await taskStore.getUserName(props.task.user_id)
 });
 
+
 const startEditing = () => {
   isEditing.value = true;
   nextTick(() => {
@@ -63,6 +64,7 @@ const saveText = () => {
 const changeStat = (e) => {
   props.task.stat = e.target.value;
   taskStore.updateTask(props.task.id, e.target.value, "stat");
+
 }
 </script>
 

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Events\TaskUpdated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\V1\StoreTaskRequest;
 use App\Http\Requests\V1\UpdateTaskRequest;
 use App\Http\Resources\V1\TaskCollection;
 use App\Http\Resources\V1\TaskResource;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -18,7 +20,7 @@ class TaskController extends Controller
     public function index()
     {
         $user = auth()->user();
-        return new TaskCollection(Task::where('user_id', $user->id)->get());
+        return new TaskCollection(Task::all());
     }
 
     /**
@@ -49,11 +51,13 @@ class TaskController extends Controller
     public function update(UpdateTaskRequest $request, string $id)
     {
         $task = Task::find($id);
-
+        $user = User::find(auth()->user()->id);
         if (!$task) {
             return response()->json(['message' => 'Task not found'], 404);
         }
         $task->update($request->all());
+
+        event(new TaskUpdated($task, $user));
         return response()->json(['data' => $task, 'message' => 'Task updated successfully']);
     }
 

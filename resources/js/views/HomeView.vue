@@ -1,7 +1,8 @@
 <template>
       <header>
           <RouterLink v-if="!auth.token" class="router-link" to="/login">Login</RouterLink>
-          <button v-if="!auth.token" class="router-link" to="/register">Register</button>
+          <RouterLink v-if="!auth.token" class="router-link" to="/register">Register</RouterLink>
+          <button v-if="auth.token" @click="auth.logout" class="router-link" >Logout</button>
         </header>
     <div class="container">
         <h1>Task managment</h1>
@@ -42,11 +43,16 @@
     import { useTaskStore } from '../store/TaskStore'
     import { useAuthStore } from '../store/AuthStore'
     import { useRouter } from 'vue-router'
-    import { ref } from 'vue'
+    import { ref,onMounted } from 'vue'
     import { storeToRefs } from 'pinia'
     const auth = useAuthStore()
     const taskStore = useTaskStore()
-
+    onMounted(()=>{
+        window.Echo.channel("realtime_").listen("TaskUpdated", (event) => {
+            taskStore.getTasks();
+            console.log(event);
+        });
+    })
     const { tasks } = storeToRefs(taskStore)
 
     taskStore.getTasks();

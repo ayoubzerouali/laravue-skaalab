@@ -41,11 +41,16 @@ const { message } = storeToRefs(authStore)
 
 const auth = () => {
     if(page.value === 'login'){
+      try {
         authStore.login({ email:email.value, password:password.value});
+        
+      } catch (error) {
+        alert(error.message)
+      }
+
 
     }else{
         authStore.register({ name:name.value, email:email.value, password:password.value});
-
     }
 }
 
