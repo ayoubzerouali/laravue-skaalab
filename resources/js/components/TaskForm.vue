@@ -2,35 +2,34 @@
   <form @submit.prevent="handleSubmit">
     <input 
       type="text" 
-      placeholder="I need to..."
-      v-model="newTask"
+      placeholder="J'ia besoin"
+      v-model="taskName"
     >
+    <textarea v-model="taskText" cols="30" rows="8" placeholder="Entrez votre text ici"></textarea>
     <button>Add</button>
   </form>
 </template>
 
-<script>
-import { ref } from 'vue'
-import { useTaskStore } from '../stores/TaskStore'
+<script setup>
+  import { ref } from 'vue'
+  import { useTaskStore } from '../store/TaskStore'
+  const taskStore = useTaskStore()
 
-export default {
-  setup() {
-    const taskStore = useTaskStore()
+  const taskName = ref('')
+  const taskText = ref('')
 
-    const newTask = ref('')
-
-    const handleSubmit = () => {
-      if (newTask.value.length > 0) {
-        taskStore.addTask({
-          title: newTask.value,
-          isFav: false,
-          id: Math.floor(Math.random() * 1000000)
-        })
-        newTask.value = ""
-      }
+  const handleSubmit = () => {
+    if (newTask.value.length > 0) {
+      taskStore.addTask({
+        name: taskName.value,
+        stat: "todo",
+        text:taskText.value,
+        user_id:1
+        // id: Math.floor(Math.random() * 1000000)
+      })
+      taskName.value = ""
+      taskText.value = ""
     }
-
-    return { handleSubmit, newTask }
   }
-}
+
 </script>

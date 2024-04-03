@@ -1,6 +1,7 @@
 <template>
   <div class="task">
-    <h3>{{ task.title }}</h3>
+    <h3>{{ task.name }}</h3>
+    <p>{{ task.text }}</p>
     <div class="icons">
       <i 
         class="material-icons" 
@@ -17,15 +18,10 @@
   </div>
 </template>
 
-<script>
-  import { useTaskStore } from '../stores/TaskStore'
+<script setup>
+import { useTaskStore } from '../store/TaskStore'
 
-  export default {
-    props: ['task'],
-    setup() {
-      const taskStore = useTaskStore()
-
-      return { taskStore }
-    }
-  }
+const taskStore = useTaskStore()
+const props = defineProps(['task']);
+// console.log(props.task)
 </script>

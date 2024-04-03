@@ -27,7 +27,7 @@ import axios from 'axios';
 const taskName = ref('');
 const taskText= ref('');
 
-const emit = defineEmits(["closeModal",'taskAdded']);
+const emit = defineEmits(["closeModal"]);
     
     defineProps({
       visible: {
@@ -53,7 +53,6 @@ const emit = defineEmits(["closeModal",'taskAdded']);
             };
 
             const response = await axios.post('/api/v1/tasks', data,{headers});
-            emits.taskAdded(response.data)
             closeModal();
         } catch (error) {
             console.error('Error:', error);

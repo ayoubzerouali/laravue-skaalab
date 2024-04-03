@@ -1,25 +1,21 @@
 <template>
     <main>
   
-      <!-- heading -->
       <header>
-        <img src="https://pinia.vuejs.org/logo.svg" alt="pinia logo">
-        <h1>Pinia Tasks</h1>
+        <h1>Task managment</h1>
       </header>
   
-      <!-- new task form -->
       <div class="new-task-form">
         <TaskForm />
       </div>
   
-      <!-- filter -->
-      <nav class="filter">
+      <!-- <nav class="filter">
         <button @click="filter = 'all'">All tasks</button>
         <button @click="filter = 'favs'">Fav tasks</button>
-      </nav>
+      </nav> -->
   
       <!-- loading -->
-      <div class="loading" v-if="loading">Loading tasks...</div>
+      <!-- <div class="loading" v-if="loading">Loading tasks...</div> -->
   
       <!-- task list -->
       <div class="task-list" v-if="filter === 'all'">
@@ -40,27 +36,20 @@
     </main>
   </template>
   
-  <script>
+  <script setup>
     import TaskDetails from './components/TaskDetails.vue'
     import TaskForm from './components/TaskForm.vue'
   
-    import { useTaskStore } from './stores/TaskStore'
+    import { useTaskStore } from './store/TaskStore'
     import { ref } from 'vue'
     import { storeToRefs } from 'pinia'
   
-    export default {
-      components: { TaskDetails, TaskForm },
-      setup() {
-        const taskStore = useTaskStore()
+    const taskStore = useTaskStore()
   
-        const { tasks, loading, favs, totalCount, favCount } = storeToRefs(taskStore)
-  
-        // fetch tasks
-        taskStore.getTasks()
-  
-        const filter = ref('all')
-  
-        return { taskStore, filter, tasks, loading, favs, totalCount, favCount }
-      }
-    }
+      const { tasks, loading, favs, totalCount, favCount } = storeToRefs(taskStore)
+
+      // fetch tasks
+      taskStore.getTasks()
+
+      const filter = ref('all')
   </script>

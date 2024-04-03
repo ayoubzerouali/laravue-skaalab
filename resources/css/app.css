@@ -12,23 +12,22 @@ body * {
 /* header */
 header {
   text-align: center;
-  background: #e7e7e7;
+  background: transparent;
   padding-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-header img {
-  max-width: 60px;
-  transform: rotate(-10deg);
-}
+  /* header img {
+    max-width: 60px;
+    transform: rotate(-10deg);
+  } */
 header h1 {
   margin: 0;
   font-size: 2em;
-  padding-top: 25px;
-  margin-left: 15px;
+  padding-top: 1em;
+  margin-left: 1.5em;
   color: #777;
-  transform: rotate(2deg);
 }
 
 /* task list */
@@ -89,8 +88,8 @@ form {
   max-width: 400px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 3fr 1fr;
-  gap: 10px;
+  /* grid-template-columns: 3fr 1fr; */
+  gap: 3px;
 }
 form button {
   background: #ffd859;
@@ -102,6 +101,13 @@ form button {
   font-size: 1em;
 }
 form input {
+  border: 0;
+  padding: 10px;
+  border-radius: 6px;
+  color: #555;
+  font-size: 1em;
+}
+form textarea {
   border: 0;
   padding: 10px;
   border-radius: 6px;
