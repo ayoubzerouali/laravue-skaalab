@@ -7,4 +7,5 @@
 <li>php artisan serve</li>
      
  
-<h1>the broadcasting isn't on sync so you might would have to consider runnig <strong>php artisan queue:work </strong>  </h1>
+<h3>the broadcasting isn't on sync so you might would have to consider runnig <br>
+    <strong>php artisan queue:work </strong>  </h3>
