@@ -23,14 +23,14 @@ class UpdateTaskRequest extends FormRequest
     {
         if ($this->method() === 'PUT') {
             return [
-                'name' => ['required|string'],
-                'stat' => ['required'],
-                'text' => ['nullable|string']
+                'name' => ['required', 'string'],
+                'stat' => ['nullable'],
+                'text' => ['nullable', 'string']
             ];
         } else {
             return [
                 'name' => ['sometimes', 'required', 'string'],
-                'stat' => ['sometimes', 'required'],
+                'stat' => ['sometimes', 'nullable'],
                 'text' => ['sometimes', 'nullable', 'string']
             ];
         }

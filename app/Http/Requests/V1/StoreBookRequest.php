@@ -23,10 +23,10 @@ class StoreBookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required',
-            'author' => 'required|string',
-            'publishedAt' => 'required|date_format:d/m/Y',
-            'isbn' => 'required|string|digits: 13',
+            'title' => ['required'],
+            'author' => ['required', 'string'],
+            'publishedAt' => ['required', 'date_format:d/m/Y'],
+            'isbn' => ['required', 'string', 'digits: 13'],
         ];
     }
 

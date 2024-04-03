@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         Task::create([
             'name' => 'Test Task',
             'text' => 'Plain text for testing 1 2 1 3 1 2 1 3',
-            'stat' => 'waiting',
+            'stat' => 'todo',
             'user_id' => 1
         ]);
 

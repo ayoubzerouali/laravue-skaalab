@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('text');
-            $table->enum('stat', ['waiting', 'inprogress', 'completed'])->default('waiting');
+            $table->enum('stat', ['todo', 'inprogress', 'completed'])->default('todo');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });

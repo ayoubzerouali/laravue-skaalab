@@ -1,0 +1,56 @@
+@import url("primevue/resources/themes/aura-light-green/theme.css");
+
+@import 'primeicons/primeicons.css';
+
+
+body {
+    display: block;
+}
+
+.tabmenu{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+.p-splitter-panel {
+    flex-grow: 1;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.p-text-secondary {
+    color: #888;
+}
+
+.font-semibold {
+    font-weight: 600; 
+}
+
+.flex-auto {
+    flex: 1;
+}
+.flex {
+    display: flex;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.gap-3 > * + * {
+    margin-left: 0.75rem; 
+}
+.gap-2 > * + * {
+    margin-left: 0.5rem; 
+}
+
+.mb-3 {
+    margin-bottom: 0.75rem; 
+}
+.justify-content-end {
+    justify-content: flex-end;
+}
+.w-6rem{
+    width: 6rem;
+}
