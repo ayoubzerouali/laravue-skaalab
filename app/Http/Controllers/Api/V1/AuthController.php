@@ -61,4 +61,9 @@ class AuthController extends Controller
 
         return response()->json(['token' => $token], 201);
     }
+
+    public function user()
+    {
+        return response()->json(Auth::user(), 200);
+    }
 }

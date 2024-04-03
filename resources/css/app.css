@@ -56,25 +56,8 @@ header h1 {
   color: #ff005d;
 }
 
-/* filter nav */
-.filter {
-  width: 640px;
-  margin: 10px auto;
-  text-align: right;
-}
-.filter button {
-  display: inline-block;
-  margin-left: 10px;
-  background: #fff;
-  border: 2px solid #555;
-  border-radius: 4px;
-  padding: 4px 8px;
-  cursor: pointer;
-  font-size: 0.8em;
-  font-size: 1em;
-}
 
-/* new task form */
+
 .new-task-form {
   background: #e7e7e7;
   padding: 20px 0;
@@ -129,7 +112,7 @@ form textarea {
   display: grid;
   grid-gap: 1em;
   overflow-y: auto;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Automatically fit columns with minimum width of 250px */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
 }
 .task-list{
     background: #e7e7e7 ;

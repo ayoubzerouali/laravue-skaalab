@@ -14,24 +14,27 @@
   import { ref } from 'vue'
   import { useTaskStore } from '../store/TaskStore'
   import { useAuthStore } from '../store/AuthStore'
+  import { storeToRefs } from "pinia";
+
   const taskStore = useTaskStore()
-  const authStore = useAuthStore()
-  console.log(authStore.token)
+  const auth = useAuthStore()
   const taskName = ref('')
   const taskText = ref('')
+  const { isAuthenticated, token, authUser } = storeToRefs(auth);
 
-  const handleSubmit = () => {
-    if(!authStore.token){
+
+  const handleSubmit = async () => {
+    if(!isAuthenticated.value){
       alert('Vous devez être connecté pour ajouter une tâche')
       return
     }
     if (taskName.value.length > 0 && taskText.value.length > 0) {
+      const userAuth = await auth.user()
       taskStore.addTask({
         name: taskName.value,
         stat: "todo",
         text:taskText.value,
-        user_id:1
-
+        user_id: userAuth.id
       })
       taskName.value = ""
       taskText.value = ""

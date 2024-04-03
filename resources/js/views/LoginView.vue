@@ -29,6 +29,8 @@
 import { useRoute } from 'vue-router';
 
 import {ref,onMounted} from 'vue'
+import { storeToRefs } from 'pinia'
+
 const email = ref('');
 const password = ref('');
 const name = ref('');

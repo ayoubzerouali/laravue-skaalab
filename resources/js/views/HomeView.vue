@@ -9,16 +9,6 @@
     <div class="new-task-form">
         <TaskForm />
     </div>
-
-    <!-- <nav class="filter">
-    <button @click="filter = 'all'">All tasks</button>
-    <button @click="filter = 'favs'">Fav tasks</button>
-    </nav> -->
-
-    <!-- loading -->
-    <!-- <div class="loading" v-if="loading">Loading tasks...</div> -->
-
-    <!-- task list -->
     <div class="lists">
         <div class="task-list">
             <h2 style="border-bottom: solid 2px plum;">Todo</h2>
@@ -59,9 +49,5 @@
 
     const { tasks } = storeToRefs(taskStore)
 
-    taskStore.getTasks()
-
-    
-
-
+    taskStore.getTasks();
 </script>

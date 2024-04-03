@@ -5,13 +5,11 @@ import { useRouter } from "vue-router";
 export const useAuthStore = defineStore("authStore", () => {
     const token = ref(localStorage.getItem("token") || "");
     const message = ref("");
+    const authUser = ref("");
     const router = useRouter();
-    async function getToken() {
-        const response = await axios.get("/sanctum/csrf-cookie");
-        const newToken = response.data.token;
-        token.value = newToken;
-        localStorage.setItem("token", newToken);
-    }
+    const isAuthenticated = computed(() => {
+        return token.value !== "";
+    });
 
     async function login(credentials) {
         try {
@@ -36,10 +34,47 @@ export const useAuthStore = defineStore("authStore", () => {
             message.value = error.response.data.message;
         }
     }
+
+    async function refreshToken() {
+        try {
+            const res = await axios.get("/sanctum/csrf-cookie");
+            console.log(res);
+        } catch (error) {
+            console.error(error);
+            message.value = error.response.data.message;
+        }
+    }
+
+    async function user() {
+        try {
+            const res = await axios.get("/api/v1/user", {
+                headers: {
+                    Authorization: `Bearer ${token.value}`,
+                    "Content-Type": "application/json",
+                },
+            });
+            authUser.value = res.data;
+
+            return res.data;
+        } catch (error) {
+            console.error(error);
+            message.value = error.response.data.message;
+        }
+    }
     function logout() {
         token.value = "";
         localStorage.removeItem("token");
         router.push({ path: "/login" });
     }
-    return { logout, register, login, getToken, token };
+    return {
+        logout,
+        register,
+        login,
+        token,
+        user,
+        refreshToken,
+        isAuthenticated,
+        authUser,
+        message,
+    };
 });
