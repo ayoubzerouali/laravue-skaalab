@@ -11,6 +11,7 @@ use App\Http\Resources\V1\TaskResource;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class TaskController extends Controller
 {
@@ -28,8 +29,13 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request)
     {
-        $task = new TaskResource(Task::create($request->all()));
-        return response()->json(['data' => $task, 'message' => 'Task created successfully']);
+        try {
+            $task = new TaskResource(Task::create($request->all()));
+            return response()->json(['data' => $task, 'message' => 'Task created successfully']);
+        } catch (\Throwable $th) {
+            throw ValidationException::withMessages(['error'=>$th]) ;
+        }
+
     }
 
     /**

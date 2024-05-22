@@ -7,9 +7,11 @@ export const useTaskStore = defineStore("taskStore", () => {
     const tasks = ref([]);
     const userName = ref("");
     const auth = useAuthStore();
-    const { isAuthenticated, token, authUser } = storeToRefs(auth);
+    const { isAuthenticated } = storeToRefs(auth);
+    let newToken = ref(localStorage.getItem('token'));
+
     const headers = {
-        Authorization: `Bearer ${token.value}`,
+        Authorization: `Bearer ${newToken.value}`,
         Accept: "application/json",
         "Content-Type": "application/json",
     };
@@ -20,7 +22,7 @@ export const useTaskStore = defineStore("taskStore", () => {
             });
             tasks.value.push(task);
         } catch (error) {
-            console.error("Error:", error);
+            console.error("Error:", error.error);
         }
     }
     //actions

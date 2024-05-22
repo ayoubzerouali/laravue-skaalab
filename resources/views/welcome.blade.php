@@ -21,7 +21,18 @@
     </head>
     <body>
         <div id="app"></div>
-        @vite('resources/js/app.js')
         
+        <div hx-get="/clicked" style="border:solid 2px rgb(39, 116, 184)" hx-trigger="click[ctrlKey]">
+            Control Click Me
+        </div>
+        
+        @vite('resources/js/app.js')
+        @if(session('error'))
+            <script>
+                console.log("{{session('error')}}")
+            </script>
+        @endif
+        <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </body>
 </html>

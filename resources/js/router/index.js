@@ -6,7 +6,7 @@ const router = createRouter({
     routes: [
         {
             path: "/",
-            name: "Dashboard",
+            name: "Home",
             component: HomeView,
             meta: { requiresAuth: true },
         },
@@ -29,11 +29,13 @@ const router = createRouter({
     ],
 });
 router.beforeEach((to, from) => {
-    const isAuthenticated = localStorage.getItem("token");
+    const isAuthenticated = localStorage.getItem("token").length > 0;
+    // console.log(isAuthenticated);
+    
     if (
         // make sure the user is authenticated
         isAuthenticated &&
-        to == "Login"
+        (to.name == "login" || to.name == "register")
     ) {
         // redirect the user to the login page
         return { name: "Dashboard" };

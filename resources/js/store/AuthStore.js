@@ -3,13 +3,19 @@ import { defineStore } from "pinia";
 import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 export const useAuthStore = defineStore("authStore", () => {
-    const token = ref(localStorage.getItem("token") || "");
     const message = ref("");
     const authUser = ref("");
     const router = useRouter();
+    let token = ref(localStorage.getItem('token'));
+
     const isAuthenticated = computed(() => {
         return token.value !== "";
     });
+    const headers = {
+        Authorization: `Bearer ${token.value}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+    };
 
     async function login(credentials) {
         try {
@@ -48,10 +54,7 @@ export const useAuthStore = defineStore("authStore", () => {
     async function user() {
         try {
             const res = await axios.get("/api/v1/user", {
-                headers: {
-                    Authorization: `Bearer ${token.value}`,
-                    "Content-Type": "application/json",
-                },
+                headers: headers
             });
             authUser.value = res.data;
 
@@ -61,11 +64,13 @@ export const useAuthStore = defineStore("authStore", () => {
             message.value = error.response.data.message;
         }
     }
+
     function logout() {
         token.value = "";
         localStorage.removeItem("token");
         router.push({ path: "/login" });
     }
+
     return {
         logout,
         register,

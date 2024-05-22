@@ -43,11 +43,12 @@
     import { useTaskStore } from '../store/TaskStore'
     import { useAuthStore } from '../store/AuthStore'
     import { useRouter } from 'vue-router'
-    import { ref,onMounted } from 'vue'
+    import { onMounted } from 'vue'
     import { storeToRefs } from 'pinia'
     const auth = useAuthStore()
     const taskStore = useTaskStore()
     onMounted(()=>{
+        auth.user();
         window.Echo.channel("realtime_").listen("TaskUpdated", (event) => {
             taskStore.getTasks();
             console.log(event);
