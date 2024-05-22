@@ -29,9 +29,9 @@ const router = createRouter({
     ],
 });
 router.beforeEach((to, from) => {
-    const isAuthenticated = localStorage.getItem("token").length > 0;
+    const isAuthenticated = localStorage.getItem("token")?.length > 0 ? localStorage.getItem("token") : false ;
     // console.log(isAuthenticated);
-    
+
     if (
         // make sure the user is authenticated
         isAuthenticated &&

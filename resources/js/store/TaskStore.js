@@ -1,15 +1,15 @@
 import { defineStore } from "pinia";
-import { computed, ref, resolveDirective } from "vue";
-import { useAuthStore } from "./AuthStore";
-import { storeToRefs } from "pinia";
+import {ref,computed } from "vue";
+
 
 export const useTaskStore = defineStore("taskStore", () => {
     const tasks = ref([]);
     const userName = ref("");
-    const auth = useAuthStore();
-    const { isAuthenticated } = storeToRefs(auth);
-    let newToken = ref(localStorage.getItem('token'));
 
+    let newToken = ref(localStorage.getItem('token'));
+    const isAuthenticated = computed(() => {
+        return newToken.value?.length > 1 ;
+    });
     const headers = {
         Authorization: `Bearer ${newToken.value}`,
         Accept: "application/json",
@@ -17,7 +17,7 @@ export const useTaskStore = defineStore("taskStore", () => {
     };
     async function addTask(task) {
         try {
-            const response = await axios.post("/api/v1/tasks", task, {
+            await axios.post("/api/v1/tasks", task, {
                 headers,
             });
             tasks.value.push(task);
@@ -28,6 +28,7 @@ export const useTaskStore = defineStore("taskStore", () => {
     //actions
     async function getTasks() {
         if (!isAuthenticated.value) {
+            Swal.fire({title:"S'authentifier peut etre ??"});
             return 0;
         }
         try {
@@ -52,7 +53,6 @@ export const useTaskStore = defineStore("taskStore", () => {
         }
     }
     async function deleteTask(id) {
-        console.log(id);
         try {
             const res = await axios.delete("api/v1/tasks/" + id, {
                 headers,
@@ -69,6 +69,7 @@ export const useTaskStore = defineStore("taskStore", () => {
         const res = await axios.get(`/api/v1/users/${id}`, { headers });
         const data = await res.data;
         userName.value = data.name;
+        console.log(data.name);
         return data.name;
     }
     return {

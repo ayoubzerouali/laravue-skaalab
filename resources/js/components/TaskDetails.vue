@@ -6,7 +6,7 @@
     <p v-if="!isEditing" @dblclick="startEditing" style="font-size: 16px;">{{ task.text }}</p>
     <input v-else v-model="editedText" @keyup.enter="saveText" @blur="saveText" ref="input" />
     
-    <span style="color: blue;font-size: 11px;">{{  taskStore.userName}}</span>
+    <span style="color: blue;font-size: 11px;">{{  userName}}</span>
     <div class="icons">
       <i 
         class="material-icons" 
@@ -26,6 +26,7 @@ import { ref,nextTick,onMounted,computed } from 'vue';
 import { useTaskStore } from '../store/TaskStore'
 const taskStore = useTaskStore()
 const props = defineProps(['task']);
+const userName = ref('');
 const isEditing = ref(false);
 const inputRef = ref(null);
 const editedName = ref(props.task.name);
@@ -33,7 +34,7 @@ const editedText = ref(props.task.text);
 const options = ref(['todo','inprogress','completed']);
 
 onMounted( async ()=>{
-    await taskStore.getUserName(props.task.user_id)
+    userName.value = await taskStore.getUserName(props.task.user_id)
 });
 
 

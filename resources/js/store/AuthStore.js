@@ -9,7 +9,7 @@ export const useAuthStore = defineStore("authStore", () => {
     let token = ref(localStorage.getItem('token'));
 
     const isAuthenticated = computed(() => {
-        return token.value !== "";
+        return token.value?.length > 1 ;
     });
     const headers = {
         Authorization: `Bearer ${token.value}`,
@@ -52,6 +52,9 @@ export const useAuthStore = defineStore("authStore", () => {
     }
 
     async function user() {
+        if (!isAuthenticated.value) {
+            return 0;
+        }
         try {
             const res = await axios.get("/api/v1/user", {
                 headers: headers

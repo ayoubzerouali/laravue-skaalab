@@ -2,7 +2,7 @@
   <form @submit.prevent="handleSubmit">
     <input 
       type="text" 
-      placeholder="J'ia besoin"
+      placeholder="J'ai besoin"
       v-model="taskName"
     >
     <textarea v-model="taskText" cols="30" rows="8" placeholder="Entrez votre text ici"></textarea>
